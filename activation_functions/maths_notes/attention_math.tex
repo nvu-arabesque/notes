@@ -1,0 +1,35 @@
+\section{Notes on Attention}\label{sec:attention_mechanism}
+In this section, we study a bit of attention mechanism. This section will be rewritten after we have covered a sufficient number of papers to establish a good understanding of the attention mechanisms which seem to be may. 
+
+\subsection{Hierarchical Attention \cite{HAN_paper}}
+
+Hierarchical Attention is described in \cite{HAN_paper} which consists two levels of attention, a \textbf{word} attention and \textbf{sentence} attention.
+
+\subsubsection{Word Attention}
+In \cite{HAN_paper}, the \textbf{Word Attention} is described as follows. Some analysis is borrowed from the notes \cite{HAN_math_notes}
+
+Consider a document $\mathcal{D}$ consists of some \textbf{sentences} $S_i$ i.e. $\mathcal{D} = \{S_i\}_{i=1}^d$. In which each $S_i$ is a sentence consists of $T_i$ number of words $w$ i.e. $S_i = \{w^i_j \}_{j=1}^{T_i}$. (Note it can be seen that the length of each sentence can be arbitrary such that $T_i \neq T_j: \forall i \neq j \in \mathcal{D}$; thus some paper mentioned the use of \textit{padding} to enforce $T_i = T_j$).
+
+The process of calculating the \textit{word attention} of a given word $w^i_j$ is given as follows in sequential order
+\begin{enumerate}
+    \item Embed the word,
+    \item MLP, with a trainable parameters $W_w$
+    \item softmax, with a trainable vector $v$
+\end{enumerate}
+It is worth highlighting the dimensions of the inputs and outputs which we will cover at each particular step.
+
+An embedding $f: X \rightarrow Y $ in which $X$ is a dictionary of words and typically $Y \in R^K$, for example a common choice of $f$ is BERT \cite{BERT} hence $K = 768$. We obtain the embedding of a single word $w^i_j$
+\begin{equation}\label{eq:HAN_word_attention_embed}
+    h^i_j = f(w^i_j)
+\end{equation}
+Next, a transformation step is performed through a MLP layer defined by
+\begin{equation}\label{eq:HAN_word_attention_MLP}
+    u^i_j = \tanh{\Big( W_w h^i_j + b_w \Big)}
+\end{equation}
+Since $h^i_j \in R^K$, and assuming that $W_w \in R^{ L \times K}$ thus $u^i_j$ is a vector of dimension $L$. It seems the dimension of $W_w$ is not covered in the original paper but some sources seem to use $L = K$ (but in general it makes sense that $L \leq K$ so it is not projecting to \textbf{higher} dimensional spaces). \cite{HAN_math_notes} looks at this from a geometric perspective in this sense this step transform the embedded vector (or annotated words as the author called it), the resulting vector/space is then put through $\tanh$ and we might wonder why $\tanh$? (\mynote{I have no clue here, if we use the $\tanh$ in its exponential form it is clear that it is continous thus we can imagine the resulting space is mapped towards a different space, how this new space looks like i donot really know, needs more reading; or maybe it does not have anything to do with geometric was purely from technical details of neural net}).
+
+So far we got $u^i_j \in R^k$, the next step is calculate a softmax using a vector $u_w \in R^k$ which is trainable (\mynote{now I regret using the raised $i$ notation})
+\begin{equation}
+    \alpha^i_j = \frac{(u^i_j)^T u_w}{\sum_{j \in T_i} (u^i_j)^T u_w}
+\end{equation}
+so $\alpha^i_j \in [0, 1]$ should be a scalar. The original paper refers to $u_w$ as \textbf{word level context vector}, and $\alpha^i_t$ as \textbf{normalized importance weight} because $\sum_{j \in T_i} \alpha^i_j = 1$. Thus one can see this step determines a \textit{weight} of a word by

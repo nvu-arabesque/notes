@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor,soul,lipsum}
+% \usepackage[hidelinks]{hyperref}
+
+% -----------------------------------------------------------------
+%   Preamble
+% -----------------------------------------------------------------
+\input{preamble}
+
+\usepackage{subfiles} % Best loaded last in the preamble
+
+% -----------------------------------------------------------------
+%   Main Content
+% -----------------------------------------------------------------
+\title{AttentionTransformerGraph}
+\date{February 2021}
+
+
+\begin{document}
+
+\maketitle
+
+\subfile{maths_notes/attention_math}
+
+\subfile{maths_notes/activation_function}
+
+% fine uou win, lol 
+% use the markdown
+% \markdownInput{notes.md}
+
+\bibliographystyle{plain}
+\bibliography{refs} 
+
+\end{document}

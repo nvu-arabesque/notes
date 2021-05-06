@@ -1,0 +1,26 @@
+\section{Activation Functions}\label{sec:activation_function}
+This section spends some time study abit about some of the popular activation functions just for the fun and curioustiy of it
+\subsection{tanh}\label{subsec:activation_function_tanh}
+$\tanh$ is a popular activation function commonly seen in many attention as can be seen from \ref{sec:attention_mechanism}. $\tanh$ belongs to the family of hyperbolic functions imagine trigometry but defined on hyperbol instead of circles, thus similarly to $\tan = \sin/\cos$ we have $\tanh = \sinh/\cosh$. We are given
+\begin{align*}
+    \sinh &= \frac{1 - e^{-2x}}{2e^{-x}} \\
+    \cosh &= \frac{1 + e^{-2x}}{2e^{-x}}
+\end{align*}
+and hence
+\begin{equation}
+    \tanh(x) = \frac{sinh}{cosh} = \frac{1-e^{-2x}}{1+e^{-2x}} = \frac{e^{2x}-1}{e^{2x}+1}
+\end{equation}
+in this form it can be easily seen that the function is continuous.
+
+One cool way to write $\tanh$ is as follows (collected from \cite{tanh_mathexchange}). Using Weierstrass factorization for $\cosh$ as 
+\begin{align*}
+    \cosh(x) &= \prod_{k=1}^{\infty} \Big(1 + \frac{4x^2}{(2k-1)^2\pi^2} \Big)\\
+\intertext{taking $log$ of both sides}
+    \log \cosh(x) &= \log \Big\{ \prod_{k=1}^{\infty} \Big(1 + \frac{4x^2}{(2k-1)^2\pi^2} \Big) \Big\}  \\
+    &= \sum_{k=1}^{\infty} \log \Big(1 + \frac{4x^2}{(2k-1)^2\pi^2} \Big) \\
+\intertext{differentiate both side with respect to $x$}
+    \tanh(x) &= \sum_{k=1}^{\infty} \frac{1}{1 + \frac{4x^2}{(2k-1)^2\pi^2}} \frac{8x}{(2k-1)^2\pi^2}\\
+    &= \sum_{k=1}^{\infty}
+\end{align*}
+
+

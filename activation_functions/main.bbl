@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{HAN_math_notes}
+[].
+
+\bibitem{tanh_mathexchange}
+[].
+
+\bibitem{BERT}
+Jacob Devlin, Ming{-}Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT:} pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em CoRR}, abs/1810.04805, 2018.
+
+\bibitem{HAN_paper}
+Zichao Yang, Diyi Yang, Chris Dyer, Xiaodong He, Alex Smola, and Eduard Hovy.
+\newblock Hierarchical attention networks for document classification.
+\newblock In {\em Proceedings of the 2016 Conference of the North {A}merican
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies}, pages 1480--1489, San Diego, California, June 2016.
+  Association for Computational Linguistics.
+
+\end{thebibliography}
